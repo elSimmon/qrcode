@@ -17,8 +17,11 @@ class ProductsTable extends Migration
           $table->id();
           $table->integer('user_id');
           $table->string('name');
+          $table->double('price');
+          $table->integer('quantity');
           $table->string('qrcode')->unique();
           $table->string('imagepath');
+          $table->date('expirydate');
           $table->timestamps();
         });
     }
