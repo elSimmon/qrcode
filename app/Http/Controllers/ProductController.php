@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Auth;
+use Intervention\Image\Facades\Image;
+
+
 
 class ProductController extends Controller
 {
@@ -56,9 +60,15 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->expirydate = $request->expirydate;
-        $product->qrcode = time().'.'.rand(11);
+        $product->qrcode = time().'.'.rand(11, 27);
+        If($request->hasFile('imagepath')){
+            $picture = $request -> file('imagepath');
+            $filename = time() . '.' . $picture->getClientOriginalExtension();
+            $location = public_path('/img/products/' .$filename);
+            Image::make($picture)->save($location);
+            $product->imagepath = $filename;
+        }
         $product->save();
-
         return back()->with('success', 'Product uploaded with QR Code Successfully');
     }
 

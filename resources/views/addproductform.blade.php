@@ -8,6 +8,14 @@
                 <div class="card-header text-bold text-primary">{{ __('Upload New Products to Catalogue') }}</div>
 
                 <div class="card-body text-primary">
+
+                  @if ($message = Session::get('success'))
+                  <div class="alert alert-success alert-block">
+                  	<button type="button" class="close" data-dismiss="alert">×</button>
+                          <strong>{{ $message }}</strong>
+                  </div>
+                  @endif
+
                     <form method="POST" action="{{ route('submitProduct') }}" enctype="multipart/form-data">
                         @csrf
 
@@ -43,7 +51,7 @@
                             <label for="quantity" class="col-md-4 col-form-label text-md-right">{{ __('Quantity to Add') }}</label>
 
                             <div class="col-md-6">
-                                <input id="quantity" type="quantity" class="form-control @error('quantity') is-invalid @enderror" name="quantity" required autocomplete="quantity">
+                                <input id="quantity" type="quantity" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}" name="quantity" required autocomplete="quantity">
 
                                 @error('quantity')
                                     <span class="invalid-feedback" role="alert">
@@ -57,15 +65,27 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Product Expiry Date') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="expirydate" type="date" class="form-control" name="expirydate" required autocomplete="expirydate" value="{{ old('expirydate') }}">
+
+                                @error('expirydate')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Product Image') }}</label>
+                            <label for="imagepath" class="col-md-4 col-form-label text-md-right">{{ __('Product Image') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="imagepath" type="file" class="form-control" name="imagepath" required autocomplete="" value="{{old('imagepath')}}">
+
+                                @error('imagepath')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
