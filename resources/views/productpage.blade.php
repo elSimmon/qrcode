@@ -5,16 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __($product->name) }}: NGN{{number_format($product->price)}}, {{$product->quantity}} remaining</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                  <img src="{{asset('img/products/'.$product->imagepath)}}" class="img-thumbnail img-responsive" height="200px" width="150px" alt="{{$product->name}}">
+<br><br>
+                  {!! QrCode::size(250)->generate('Expiry Date: '.$product->expirydate.', Price: NGN'.number_format($product->price)); !!}
                 </div>
             </div>
         </div>

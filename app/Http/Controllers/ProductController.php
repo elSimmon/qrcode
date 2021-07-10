@@ -81,7 +81,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('productpage')->with($product);
+        \QrCode::size(500)
+                 ->format('png')
+                 ->generate('ItSolutionStuff.com', public_path('img/qrcodes/qrcode.png'));
+        return view('productpage')->withProduct($product);
     }
 
     /**
@@ -104,7 +107,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

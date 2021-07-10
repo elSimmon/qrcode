@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  // \QrCode::size(500)
-  //          ->format('png')
-  //          ->generate('ItSolutionStuff.com', public_path('images/qrcode.png'));
 
  return view('welcome');
 
@@ -28,4 +25,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/allProducts', [App\Http\Controllers\ProductController::class, 'index'])->name('allProducts');
 Route::get('/newProduct', [App\Http\Controllers\ProductController::class, 'create'])->name('newProduct');
 Route::post('/submitProduct', [App\Http\Controllers\ProductController::class, 'store'])->name('submitProduct');
-Route::get('/viewProduct/{id}', 'ProductController@show')->name('viewProduct');
+Route::get('/viewProduct/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('viewProduct');
