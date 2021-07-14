@@ -51,6 +51,7 @@ class ProductController extends Controller
           'price' => 'required|numeric',
           'quantity' => 'required|numeric',
           'expirydate' => 'required',
+          'imagepath' => 'required',
         ]);
 
         $user_id = Auth::User()->id;
@@ -81,9 +82,9 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        \QrCode::size(500)
-                 ->format('png')
-                 ->generate('ItSolutionStuff.com', public_path('img/qrcodes/qrcode.png'));
+        // \QrCode::size(500)
+        //          ->format('png')
+        //          ->generate('ItSolutionStuff.com', public_path('img/qrcodes/qrcode.png'));
         return view('productpage')->withProduct($product);
     }
 
@@ -118,6 +119,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Product::where('id', $id)->delete();
+      return back();
     }
 }

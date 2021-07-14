@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\View;
 
 use Illuminate\Support\ServiceProvider;
 use Schema;
+use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      View::share('key', 'value');
         Schema::defaultStringLength(191);
+        $notifications = DB::table('products')->whereDate('expirydate', '<=', \Carbon\Carbon::now())->get();
+        View::share('notifications',$notifications);
+
     }
 }

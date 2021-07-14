@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use DB;
+use Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $expired = DB::table('products')->whereDate('expirydate', '<=', \Carbon\Carbon::now())->get();
+        $products = DB::table('products')->get();
+        return view('home')->withProducts($products)->withExpired($expired);
+    }
+
+    public function important(){
+      $products = DB::table('products')->whereDate('expirydate', '<=', \Carbon\Carbon::now())->get();
+      return view('expiredproducts')->withProducts($products);
     }
 }
