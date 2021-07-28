@@ -22,16 +22,16 @@
                         @foreach($products as $product)
                         <tr>
                           <td>{{$product->name}}</td>
-                          <td>{{$product->price}}</td>
+                          <td>{{number_format($product->price, 2)}}</td>
                           <td>{{$product->quantity}}
                             @if($product->quantity < 14)
-                              <span class="text-danger text-sm">top-up!</span>
+                             <a class="btn btn-sm btn-danger" href="{{route('editProduct', [$product->id])}}">Top-up!</a>
                             @endif
                           </td>
                           <td>
                             {{ Carbon\Carbon::parse($product->expirydate)->diffForHumans() }}
                           </td>
-                          <td><a class="btn btn-primary btn-sm" href="#" role="button">edit</a></td>
+                          <td><a class="btn btn-primary btn-sm" href="{{route('editProduct', [$product->id])}}" role="button">edit</a></td>
                           <td><a class="btn btn-success btn-sm" href="{{route('viewProduct',[$product->id])}}" role="button">scan</a></td>
                         </tr>
                         @endforeach

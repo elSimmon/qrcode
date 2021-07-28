@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
       View::share('key', 'value');
         Schema::defaultStringLength(191);
-        $notifications = DB::table('products')->whereDate('expirydate', '<=', \Carbon\Carbon::now())->get();
+        $notifications = DB::table('products')->whereDate('expirydate', '<=', \Carbon\Carbon::today()->addDays(14))->get();
         View::share('notifications',$notifications);
 
     }

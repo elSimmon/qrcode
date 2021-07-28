@@ -13,16 +13,16 @@
                       <th>Product name</th>
                       <th>Price</th>
                       <th>Instock</th>
-                      <th>Product Status</th>
+                      <th>Expiry Status</th>
                       <th>Actions</th>
                     </thead>
                     <tbody>
                       @foreach($products as $product)
                       <tr>
                         <td>{{$product->name}}</td>
-                        <td><strike>N</strike>{{number_format($product->price)}}</td>
+                        <td><strike>N</strike>{{number_format($product->price, 2)}}</td>
                         <td>{{$product->quantity}}</td>
-                        <td class="text-danger">{{__('Product expired ')}}
+                        <td class="text-danger">
                           {{ Carbon\Carbon::parse($product->expirydate)->diffForHumans() }}
                         </td>
                         <td><a class="btn btn-danger btn-sm" href="{{route('removeProduct',[$product->id])}}" role="button">remove</a></td>
